@@ -11,9 +11,13 @@ fn main() {
 
     match year_question {
         ("2015", "1") => println!(
-            "2015 1 part 1:\n\tThe instructions take Santa to floor {}.\n\tThe character with position {} took Santa to the basement for the first time",
+            "2015 1:\n\tThe instructions take Santa to floor {}.\n\tThe character with position {} took Santa to the basement for the first time",
             aoc_2015::aoc_2015_1::part_1(),
             aoc_2015::aoc_2015_1::part_2()
+        ),
+        ("2015", "2") => println!(
+            "2015 2:\n\tThe elves' require {} feet of wrapping paper.",
+            aoc_2015::aoc_2015_2::part_1()
         ),
         _ => println!("Not implemented"),
     }

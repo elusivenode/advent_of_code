@@ -4,7 +4,7 @@ use std::path::Path;
 use std::str::FromStr;
 
 pub fn part_1() -> u32 {
-    let file_path = "/Users/hamish.macdonald/Dev/advent_of_code/puzzle_inputs/2015/1_2.txt";
+    let file_path = "/Users/hamish.macdonald/Dev/advent_of_code/puzzle_inputs/2015/2.txt";
     let mut square_feet_paper: u32 = 0;
     if let Ok(lines) = read_lines(file_path) {
         for line in lines {
@@ -18,7 +18,7 @@ pub fn part_1() -> u32 {
 }
 
 pub fn part_2() -> u32 {
-    let file_path = "/Users/hamish.macdonald/Dev/advent_of_code/puzzle_inputs/2015/1_2.txt";
+    let file_path = "/Users/hamish.macdonald/Dev/advent_of_code/puzzle_inputs/2015/2.txt";
     let mut feet_ribbon: u32 = 0;
     if let Ok(lines) = read_lines(file_path) {
         for line in lines {

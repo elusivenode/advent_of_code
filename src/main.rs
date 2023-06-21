@@ -16,8 +16,9 @@ fn main() {
             aoc_2015::aoc_2015_1::part_2()
         ),
         ("2015", "2") => println!(
-            "2015 2:\n\tThe elves' require {} feet of wrapping paper.",
-            aoc_2015::aoc_2015_2::part_1()
+            "2015 2:\n\tThe elves' require {} square feet of wrapping paper.\n\tThey also required {} feet of ribbon.",
+            aoc_2015::aoc_2015_2::part_1(),
+            aoc_2015::aoc_2015_2::part_2()
         ),
         _ => println!("Not implemented"),
     }

@@ -17,6 +17,20 @@ pub fn part_1() -> u32 {
     square_feet_paper
 }
 
+pub fn part_2() -> u32 {
+    let file_path = "/Users/hamish.macdonald/Dev/advent_of_code/puzzle_inputs/2015/1_2.txt";
+    let mut feet_ribbon: u32 = 0;
+    if let Ok(lines) = read_lines(file_path) {
+        for line in lines {
+            if let Ok(dims) = line {
+                let (l, w, h) = get_dims(&dims);
+                feet_ribbon += get_required_ribbon(l, w, h);
+            }
+        }
+    }
+    feet_ribbon
+}
+
 fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
 where
     P: AsRef<Path>,
@@ -29,10 +43,20 @@ pub fn get_required_paper(l: u32, w: u32, h: u32) -> u32 {
     2 * l * w + 2 * w * h + 2 * h * l + get_area_smallest_dims(l, w, h)
 }
 
+pub fn get_required_ribbon(l: u32, w: u32, h: u32) -> u32 {
+    l * w * h + get_perimeter_smallest_dims(l, w, h)
+}
+
 pub fn get_area_smallest_dims(l: u32, w: u32, h: u32) -> u32 {
     let mut v = vec![l, w, h];
     v.sort();
     v[0] * v[1]
+}
+
+pub fn get_perimeter_smallest_dims(l: u32, w: u32, h: u32) -> u32 {
+    let mut v = vec![l, w, h];
+    v.sort();
+    2 * v[0] + 2 * v[1]
 }
 
 pub fn get_dims(dims: &str) -> (u32, u32, u32) {
@@ -79,5 +103,13 @@ mod tests {
         let dims = "30x28x5";
         let result = get_dims(dims);
         assert_eq!(result, (30, 28, 5));
+    }
+    #[test]
+    fn get_ribbon_correct() {
+        let l = 1;
+        let w = 1;
+        let h = 10;
+        let result = get_required_ribbon(l, w, h);
+        assert_eq!(result, 2 * l + 2 * w + l * w * h);
     }
 }

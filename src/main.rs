@@ -21,8 +21,9 @@ fn main() {
             aoc_2015::aoc_2015_2::part_2()
         ),
         ("2015", "3") => println!(
-            "2015 3:\n\tSanta delivered at least 1 present to {} houses.",
-            aoc_2015::aoc_2015_3::part_1()
+            "2015 3:\n\tSanta delivered at least 1 present to {} houses.\n\tWith the help of Robo_Santa, {} houses are delivered at least 1 present.",
+            aoc_2015::aoc_2015_3::part_1(),
+            aoc_2015::aoc_2015_3::part_2(),
         ),
         _ => println!("Not implemented"),
     }

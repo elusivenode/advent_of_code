@@ -25,10 +25,15 @@ fn main() {
             aoc_2015::aoc_2015_3::part_1(),
             aoc_2015::aoc_2015_3::part_2(),
         ),
-        ("2015", "4") => println!(
-            "2015 4:\n\t{} is the lowest number that produces a hash with 5 leading zeroes when combined with the secret key.",
-            aoc_2015::aoc_2015_4::part_1(),
-        ),
+        ("2015", "4") => {
+            let p1 = aoc_2015::aoc_2015_4::part_1(0);
+            let p2 = aoc_2015::aoc_2015_4::part_2(p1 + 1);
+            println!(
+            "2015 4 1:\n\t{} is the lowest number that produces a hash with 5 leading zeroes when combined with the secret key.
+            \n2015 4 2:\n\t{} is the lowest number that produces a hash with 6 leading zeroes when combined with the secret key.",
+            p1,
+            p2,
+        )},
         _ => println!("Not implemented"),
     }
 }

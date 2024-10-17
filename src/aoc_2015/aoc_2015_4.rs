@@ -1,77 +1,43 @@
-use md5::{self, Digest};
-pub fn part_1() -> u32 {
-    let secret_key = "yzbqklnj";
-    let lowest_number = find_lowest_number(&secret_key);
+use hex;
+use md5::{Digest, Md5};
+
+pub fn part_1(start_loop_int: u32) -> u32 {
+    let input = "yzbqklnj";
+    let lowest_number = find_lowest_number(input, "00000", start_loop_int);
     lowest_number
 }
 
-fn get_md5_hash(input: &str) -> Digest {
-    md5::compute(input.as_bytes())
+pub fn part_2(start_loop_int: u32) -> u32 {
+    let input = "yzbqklnj";
+    let lowest_number = find_lowest_number(input, "000000", start_loop_int);
+    lowest_number
 }
 
-fn get_first_5_nibbles_hex(digest: &Digest) -> String {
-    let mut hex_string = String::new();
-    let nibbles = [
-        digest[0] >> 4,
-        digest[0] & 0x0F,
-        digest[1] >> 4,
-        digest[1] & 0x0F,
-        digest[2] >> 4,
-    ];
-    for nibble in &nibbles {
-        hex_string.push_str(&format!("{:x}", nibble));
-    }
-    hex_string
-}
-
-fn find_lowest_number(secret_key: &str) -> u32 {
-    let mut number = 0;
+fn find_lowest_number(input: &str, zero_string: &str, start_loop_int: u32) -> u32 {
+    let mut i = start_loop_int;
     loop {
-        let digest = get_md5_hash(format!("{}{}", secret_key, number).as_str());
-        if get_first_5_nibbles_hex(&digest) == "00000" {
+        let test = get_md5_hash(&format!("{}{}", input, i));
+        if test.starts_with(zero_string) {
             break;
         }
-        number += 1;
+        i += 1;
     }
-    number
+    i
+}
+
+fn get_md5_hash(input: &str) -> String {
+    let mut sh = Md5::new();
+    sh.update(input);
+    hex::encode(sh.finalize().to_vec())
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-
     #[test]
-    fn test_find_lowest_number() {
-        let secret_key = "abcdef";
-        let lowest_number = find_lowest_number(&secret_key);
-        assert_eq!(
-            lowest_number,
-            "609043".parse::<u32>().unwrap(),
-            "Lowest does not match expected"
-        );
-    }
-
-    #[test]
-    fn test_get_first_5_nibbles_hex() {
-        let secret_key = "abcdef";
-        let digest = get_md5_hash(format!("{}{}", secret_key, 609043).as_str());
-        let hex_string = get_first_5_nibbles_hex(&digest);
-        assert_eq!(
-            hex_string, "00000",
-            "The first 5 nibbles hex string is incorrect"
-        );
-    }
-
-    #[test]
-    fn test_first_5_nibbles_zero() {
-        let secret_key = "abcdef";
-        let digest = get_md5_hash(format!("{}{}", secret_key, 609043).as_str());
-
-        let first_5_nibbles = (digest[0] >> 4) == 0
-            && (digest[0] & 0x0F) == 0
-            && (digest[1] >> 4) == 0
-            && (digest[1] & 0x0F) == 0
-            && (digest[2] >> 4) == 0;
-        assert!(first_5_nibbles, "The first 5 nibbles are not zero");
+    fn test_get_md5_hash() {
+        let input = "yzbqklnj282749";
+        let output = get_md5_hash(input);
+        assert_eq!(output, "000002c655df7738246e88f6c1c43eb7");
     }
 }
